@@ -4,13 +4,12 @@ import React, { useEffect, useState } from "react";
 import Home from "./Home";
 import Login from "./login";
 import Register from "./register";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   Routes,
   Route,
   useNavigate,
-  createBrowserRouter,
 } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import ReactGA from "react-ga";
