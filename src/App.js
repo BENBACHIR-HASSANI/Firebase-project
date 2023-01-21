@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 
 import Home from "./Home";
+import Fire from "./Fire";
 import Login from "./login";
 import Register from "./register";
 import { toast } from "react-toastify";
@@ -18,7 +19,17 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+
+// import * as admin from "firebase-admin";
+import { getInputAdornmentUtilityClass } from "@mui/material";
+
+// const cors = require("cors")({origin: true});
+
+// admin.initializeApp();
+// const db = admin.firestore();
+
 function App() {
+ 
   const [email] = useState("");
   const [password] = useState("");
   let navigate = useNavigate();
@@ -27,11 +38,7 @@ function App() {
   //   fetchData();
   // }, []);
 
-  // eslint-disable-next-line no-undef
-  // const history = createBrowserHistory();
-  // history.listen((location) => {
-  //   ReactGA.pageview(location.pathname);
-  // });
+ 
 
   useEffect(() => {
     ReactGA.initialize("UA-161441947-3");
@@ -40,7 +47,7 @@ function App() {
     let authToken = sessionStorage.getItem("Auth Token");
 
     if (authToken) {
-      navigate("/home");
+      navigate("/fire");
     }
   }, [navigate]);
   const handleAction = (id) => {
@@ -48,7 +55,7 @@ function App() {
     if (id === 2) {
       createUserWithEmailAndPassword(authentication, email, password).then(
         (response) => {
-          navigate("/home");
+          navigate("/fire");
           sessionStorage.setItem(
             "Auth Token",
             response._tokenResponse.refreshToken
@@ -72,7 +79,7 @@ function App() {
     if (id === 1) {
       signInWithEmailAndPassword(authentication, email, password).then(
         (response) => {
-          navigate("/home");
+          navigate("/fire");
           sessionStorage.setItem(
             "Auth Token",
             response._tokenResponse.refreshToken
@@ -98,7 +105,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/home" element={<Home title="Home" />} />
+        {/* <Route path="/home" element={<Home title="Home" />} /> */}
+        <Route path="/fire" element={<Fire title="fire" />} />
 
         <Route path="/" element={<Login title="Login" />} />
         <Route path="/login" element={<Login title="Login" />} />

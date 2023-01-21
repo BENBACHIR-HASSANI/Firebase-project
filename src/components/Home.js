@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import ReactGA from "react-ga";
 
 
 export default function Home() {
@@ -10,7 +9,6 @@ export default function Home() {
   };
   let navigate = useNavigate();
   useEffect(() => {
-    // ReactGA.pageview(window.location.pathname);
     let authToken = sessionStorage.getItem("Auth Token");
     console.log(authToken);
     if (authToken) {
