@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Form } from "react-bootstrap";
-import { auth } from "./firebase-config";
+import {auth} from "./firebase-config";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,19 +14,21 @@ export default function Register() {
     setPassword(e.target.value);
   };
   const onSubmitRegister = (e) => {
-    createUserWithEmailAndPassword(auth, email, password).then((response) => {
-      sessionStorage.setItem("Auth Token", response._tokenResponse);
-    });
+    createUserWithEmailAndPassword(auth, email, password).then(
+      (response) => {
+        sessionStorage.setItem("Auth Token", response._tokenResponse);
+      }
+    );
     e.preventDefault();
     console.log("clicked");
-    navigate("/home");
+    navigate("/Fire");
   };
   let navigate = useNavigate();
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
 
     if (authToken) {
-      navigate("/home");
+      navigate("/Fire");
     }
   }, [navigate]);
   return (
@@ -35,7 +37,14 @@ export default function Register() {
         <div class="col-sm-8 mt-5">
           <div class="card">
             <div class="card-body">
-              <div class="card-header">
+              <div
+                class="card-header"
+                style={{
+                  background: "#65A8F1",
+                  borderColor: "white",
+                  color: "white",
+                }}
+              >
                 <h3>Register</h3>
               </div>
               <div class="card-body">
@@ -66,7 +75,15 @@ export default function Register() {
                     </Form.Group>
                   </div>
                   <br />
-                  <button type="submit" class="btn btn-primary">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style={{
+                      width: "100%",
+                      background: "linear-gradient(to right, #65A8F1, purple)",
+                      borderColor: "white",
+                    }}
+                  >
                     Register
                   </button>
                 </Form>

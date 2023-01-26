@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+
 import { useNavigate } from "react-router-dom";
-import { auth } from "./firebase-config";
-import {
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import {auth} from "./firebase-config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,32 +19,63 @@ export default function Login() {
     console.log("clicked");
 
     console.log("email and password are" + email + password);
-    signInWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        console.log(response);
-        sessionStorage.setItem(
-          "Auth Token",
-          response._tokenResponse.refreshToken
-        );
-      })
-      // .catch((error) => {
-      //   console.log(error);
-      //   if (error.code === "auth/wrong-password") {
-      //     console.log(error);
-      //     toast.error("Please check the Password");
-      //   }
-      //   if (error.code === "auth/user-not-found") {
-      //     toast.error("Please check the Email");
-      //   }
-      // });
-    navigate("/home");
+    signInWithEmailAndPassword(auth, email, password).then((response) => {
+      console.log(response);
+      sessionStorage.setItem(
+        "Auth Token",
+        response._tokenResponse.refreshToken
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.code === "auth/wrong-password") {
+        console.log(error);
+        toast.error("Please check the Password");
+      }
+      if (error.code === "auth/user-not-found") {
+        toast.error("Please check the Email");
+      }
+    });
+    navigate("/Fire");
   };
   let navigate = useNavigate();
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
 
     if (authToken) {
-      navigate("/home");
+      navigate("/");
+    }
+  }, [navigate]);
+
+  const onSubmitRegister = (e) => {
+    e.preventDefault();
+    console.log("clicked");
+
+    console.log("email and password are" + email + password);
+    signInWithEmailAndPassword(auth, email, password).then((response) => {
+      console.log(response);
+      sessionStorage.setItem(
+        "Auth Token",
+        response._tokenResponse.refreshToken
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.code === "auth/wrong-password") {
+        console.log(error);
+        toast.error("Please check the Password");
+      }
+      if (error.code === "auth/user-not-found") {
+        toast.error("Please check the Email");
+      }
+    });
+    navigate("/register");
+  };
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+
+    if (authToken) {
+      navigate("/");
     }
   }, [navigate]);
 
@@ -54,7 +85,14 @@ export default function Login() {
         <div class="col-sm-8 mt-5">
           <div class="card">
             <div class="card-body">
-              <div class="card-header">
+              <div
+                class="card-header"
+                style={{
+                  background: "#65A8F1",
+                  borderColor: "white",
+                  color: "white",
+                }}
+              >
                 <h3>Login</h3>
               </div>
               <div class="card-body">
@@ -85,8 +123,30 @@ export default function Login() {
                     </Form.Group>
                   </div>
                   <br />
-                  <button type="submit" class="btn btn-primary">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style={{
+                      width: "100%",
+                      background: "linear-gradient(to right, purple, #65A8F1)",
+                      borderColor: "white",
+                    }}
+                  >
                     Login
+                  </button>
+                </Form>
+                <br />
+                <Form onSubmit={onSubmitRegister}>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style={{
+                      width: "100%",
+                      background: "linear-gradient(to right, #65A8F1, purple)",
+                      borderColor: "white",
+                    }}
+                  >
+                    Register
                   </button>
                 </Form>
                 {/* <Box

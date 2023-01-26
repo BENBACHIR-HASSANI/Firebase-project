@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 
-import Home from "./Home";
+// import Home from "./Home";
 import Fire from "./Fire";
 import Login from "./login";
 import Register from "./register";
@@ -21,7 +21,7 @@ import {
 } from "firebase/auth";
 
 // import * as admin from "firebase-admin";
-import { getInputAdornmentUtilityClass } from "@mui/material";
+// import { getInputAdornmentUtilityClass } from "@mui/material";
 
 // const cors = require("cors")({origin: true});
 
