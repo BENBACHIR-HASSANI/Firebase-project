@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
 import { useNavigate } from "react-router-dom";
-import {auth} from "./firebase-config";
+import {firebase} from "./firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 export default function Login() {
@@ -19,7 +19,7 @@ export default function Login() {
     console.log("clicked");
 
     console.log("email and password are" + email + password);
-    signInWithEmailAndPassword(auth, email, password).then((response) => {
+    signInWithEmailAndPassword(firebase, email, password).then((response) => {
       console.log(response);
       sessionStorage.setItem(
         "Auth Token",
@@ -36,7 +36,7 @@ export default function Login() {
         toast.error("Please check the Email");
       }
     });
-    navigate("/Fire");
+    navigate("/fetch");
   };
   let navigate = useNavigate();
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Login() {
     console.log("clicked");
 
     console.log("email and password are" + email + password);
-    signInWithEmailAndPassword(auth, email, password).then((response) => {
+    signInWithEmailAndPassword(firebase, email, password).then((response) => {
       console.log(response);
       sessionStorage.setItem(
         "Auth Token",
@@ -117,7 +117,7 @@ export default function Login() {
                           className="form-control"
                           onChange={onChangePassword}
                           name="password"
-                          placeholder="password"
+                          placeholder="Password"
                         />
                       </div>
                     </Form.Group>

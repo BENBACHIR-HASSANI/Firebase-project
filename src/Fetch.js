@@ -1,8 +1,8 @@
-import "firebase/firestore";
-import React, { useEffect } from "react";
+import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "firebase/firestore";
 
-import { auth } from "./firebase-config";
+// import { firebase } from "./firebase-config";
 export default function Fire() {
   const handleLogout = () => {
     sessionStorage.removeItem("Auth Token");
@@ -10,10 +10,18 @@ export default function Fire() {
   };
   let navigate = useNavigate();
 
-  // const ref = firebase.firestore().collection("developers");
+  // const ref = auth.firestore().collection("developers");
   // console.log(ref);
 
+  // const firestore = auth.firestore().collection("developers");
+  // console.log(firestore);
+  // const [users, setUsers] = useState([]);
+  // const dev = firebase.firestore().collection("developers");
+
+ 
+
   return (
+    
     <div
       class="row ml-3"
       style={{ width: "2520px", height: "100%", marginLeft: "150px" }}
@@ -24,7 +32,11 @@ export default function Fire() {
             <button
               className="btn btn-primary"
               onClick={handleLogout}
-              style={{ float: "right", background: "#65A8F1", borderColor: "white" }}
+              style={{
+                float: "right",
+                background: "#65A8F1",
+                borderColor: "white",
+              }}
             >
               Logout
             </button>

@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Form } from "react-bootstrap";
-import {auth} from "./firebase-config";
+import {firebase} from "./firebase-config";
+import { toast } from "react-toastify";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,21 +17,53 @@ export default function Register() {
     setPassword(e.target.value);
   };
   const onSubmitRegister = (e) => {
-    createUserWithEmailAndPassword(auth, email, password).then(
+    createUserWithEmailAndPassword(firebase, email, password).then(
       (response) => {
         sessionStorage.setItem("Auth Token", response._tokenResponse);
       }
     );
     e.preventDefault();
     console.log("clicked");
-    navigate("/Fire");
+    navigate("/fetch");
   };
   let navigate = useNavigate();
   useEffect(() => {
     let authToken = sessionStorage.getItem("Auth Token");
 
     if (authToken) {
-      navigate("/Fire");
+      navigate("/fetch");
+    }
+  }, [navigate]);
+  const onSubmitLogin = (e) => {
+    e.preventDefault();
+    console.log("clicked");
+
+    console.log("email and password are" + email + password);
+    signInWithEmailAndPassword(firebase, email, password)
+      .then((response) => {
+        console.log(response);
+        sessionStorage.setItem(
+          "Auth Token",
+          response._tokenResponse.refreshToken
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.code === "auth/wrong-password") {
+          console.log(error);
+          toast.error("Please check the Password");
+        }
+        if (error.code === "auth/user-not-found") {
+          toast.error("Please check the Email");
+        }
+      });
+    navigate("/");
+  };
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+
+    if (authToken) {
+      navigate("/");
     }
   }, [navigate]);
   return (
@@ -69,7 +104,7 @@ export default function Register() {
                           className="form-control"
                           onChange={onChangePassword}
                           name="password"
-                          placeholder="password"
+                          placeholder="Password"
                         />
                       </div>
                     </Form.Group>
@@ -80,11 +115,25 @@ export default function Register() {
                     class="btn btn-primary"
                     style={{
                       width: "100%",
-                      background: "linear-gradient(to right, #65A8F1, purple)",
+                      background: "linear-gradient(to right, purple, #65A8F1 )",
                       borderColor: "white",
                     }}
                   >
                     Register
+                  </button>
+                </Form>
+                <br />
+                <Form onSubmit={onSubmitLogin}>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style={{
+                      width: "100%",
+                      background: "linear-gradient(to right, #65A8F1, purple)",
+                      borderColor: "white",
+                    }}
+                  >
+                    Login
                   </button>
                 </Form>
               </div>

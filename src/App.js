@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 
 // import Home from "./Home";
-import Fire from "./Fire";
+import Fetch from "./Fetch";
 import Login from "./login";
 import Register from "./register";
 import { toast } from "react-toastify";
@@ -47,7 +47,7 @@ function App() {
     let authToken = sessionStorage.getItem("Auth Token");
 
     if (authToken) {
-      navigate("/fire");
+      navigate("/fetch");
     }
   }, [navigate]);
   const handleAction = (id) => {
@@ -55,7 +55,7 @@ function App() {
     if (id === 2) {
       createUserWithEmailAndPassword(authentication, email, password).then(
         (response) => {
-          navigate("/fire");
+          navigate("/fetch");
           sessionStorage.setItem(
             "Auth Token",
             response._tokenResponse.refreshToken
@@ -79,7 +79,7 @@ function App() {
     if (id === 1) {
       signInWithEmailAndPassword(authentication, email, password).then(
         (response) => {
-          navigate("/fire");
+          navigate("/fetch");
           sessionStorage.setItem(
             "Auth Token",
             response._tokenResponse.refreshToken
@@ -106,7 +106,7 @@ function App() {
     <div className="App">
       <Routes>
         {/* <Route path="/home" element={<Home title="Home" />} /> */}
-        <Route path="/fire" element={<Fire title="fire" />} />
+        <Route path="/fetch" element={<Fetch title="Fetch" />} />
 
         <Route path="/" element={<Login title="Login" />} />
         <Route path="/login" element={<Login title="Login" />} />
