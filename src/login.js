@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
 import { useNavigate } from "react-router-dom";
-import {firebase} from "./firebase-config";
+import { firebaseConfig } from "./firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 export default function Login() {
@@ -19,23 +19,24 @@ export default function Login() {
     console.log("clicked");
 
     console.log("email and password are" + email + password);
-    signInWithEmailAndPassword(firebase, email, password).then((response) => {
-      console.log(response);
-      sessionStorage.setItem(
-        "Auth Token",
-        response._tokenResponse.refreshToken
-      );
-    })
-    .catch((error) => {
-      console.log(error);
-      if (error.code === "auth/wrong-password") {
+    signInWithEmailAndPassword(firebaseConfig, email, password)
+      .then((response) => {
+        console.log(response);
+        sessionStorage.setItem(
+          "Auth Token",
+          response._tokenResponse.refreshToken
+        );
+      })
+      .catch((error) => {
         console.log(error);
-        toast.error("Please check the Password");
-      }
-      if (error.code === "auth/user-not-found") {
-        toast.error("Please check the Email");
-      }
-    });
+        if (error.code === "auth/wrong-password") {
+          console.log(error);
+          toast.error("Please check the Password");
+        }
+        if (error.code === "auth/user-not-found") {
+          toast.error("Please check the Email");
+        }
+      });
     navigate("/fetch");
   };
   let navigate = useNavigate();
@@ -52,23 +53,24 @@ export default function Login() {
     console.log("clicked");
 
     console.log("email and password are" + email + password);
-    signInWithEmailAndPassword(firebase, email, password).then((response) => {
-      console.log(response);
-      sessionStorage.setItem(
-        "Auth Token",
-        response._tokenResponse.refreshToken
-      );
-    })
-    .catch((error) => {
-      console.log(error);
-      if (error.code === "auth/wrong-password") {
+    signInWithEmailAndPassword(firebaseConfig, email, password)
+      .then((response) => {
+        console.log(response);
+        sessionStorage.setItem(
+          "Auth Token",
+          response._tokenResponse.refreshToken
+        );
+      })
+      .catch((error) => {
         console.log(error);
-        toast.error("Please check the Password");
-      }
-      if (error.code === "auth/user-not-found") {
-        toast.error("Please check the Email");
-      }
-    });
+        if (error.code === "auth/wrong-password") {
+          console.log(error);
+          toast.error("Please check the Password");
+        }
+        if (error.code === "auth/user-not-found") {
+          toast.error("Please check the Email");
+        }
+      });
     navigate("/register");
   };
   useEffect(() => {

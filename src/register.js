@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Form } from "react-bootstrap";
-import {firebase} from "./firebase-config";
+import { firebaseConfig } from "./firebase-config";
 import { toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -17,7 +17,7 @@ export default function Register() {
     setPassword(e.target.value);
   };
   const onSubmitRegister = (e) => {
-    createUserWithEmailAndPassword(firebase, email, password).then(
+    createUserWithEmailAndPassword(firebaseConfig, email, password).then(
       (response) => {
         sessionStorage.setItem("Auth Token", response._tokenResponse);
       }
@@ -39,7 +39,7 @@ export default function Register() {
     console.log("clicked");
 
     console.log("email and password are" + email + password);
-    signInWithEmailAndPassword(firebase, email, password)
+    signInWithEmailAndPassword(firebaseConfig, email, password)
       .then((response) => {
         console.log(response);
         sessionStorage.setItem(
