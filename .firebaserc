@@ -1,7 +1,5 @@
 {
   "projects": {
-    "test": "tp-firebase-ynov"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "tp-firebase-ynov"
+  }
 }
